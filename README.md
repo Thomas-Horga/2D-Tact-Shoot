@@ -10,3 +10,10 @@ Read my code, i commented fairly well i'd say, and then go to this link to under
 Start tackling the TODO list i'll make somewhere on github in a sec, and slowely but surely, we'll have a wicked game.
 
 PS: Don't share anything here with anyone! its spooky and secret
+
+HOW TO WORK ON THE GAME:
+1. Go to the wiki or issues tab and pick something to work on
+2. Branch out from the main branch, specifically for that task you choose
+3. Once you finish, make a pull request back to main, edit issues/wiki based on what you have accomplished
+NOTE: DO NOT EVER MAKE PULL REQUEST IF YOU HAVE ERRORS THAT PREVENT THE GAME FROM BUILDING
+NOTE: COMMENT EVERYTHING PROPERLY. follow the way I commmented the base code to see how to do it. UofT comp sci style. Pull requests will get rejected if your code cannot be understood because its not commented properly.
