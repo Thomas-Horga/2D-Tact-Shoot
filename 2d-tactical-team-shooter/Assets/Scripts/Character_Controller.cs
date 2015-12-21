@@ -47,6 +47,7 @@ public class Character_Controller : NetworkBehaviour {
         float x = Input.GetAxis("Horizontal") * SensitivityX;
         float y = Input.GetAxis("Vertical") * SensitivityY;
         transform.position = transform.position + new Vector3(x, y, 0);
+        CmdCharacterPosition(transform.position);
 
         Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         diff.Normalize();
@@ -55,6 +56,18 @@ public class Character_Controller : NetworkBehaviour {
 
         CameraFollow();
          
+    }
+
+    [Command]
+    void CmdCharacterPosition(Vector3 newPosition)
+        /*
+            Lerps between the local player position and the network player position in order to create a smooth transition between the two
+            Only does this for other players.
+            @type newPosition: Vector3
+        */ 
+    {
+        if(!isLocalPlayer)
+            transform.position = Vector3.Lerp(transform.position, newPosition, 0.15f);
     }
 
     [Command]
