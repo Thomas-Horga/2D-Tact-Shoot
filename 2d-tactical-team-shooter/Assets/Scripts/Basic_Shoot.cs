@@ -19,12 +19,12 @@ public class Basic_Shoot : NetworkBehaviour
 
     public Camera camera;
     public GameObject bullet;
-    public float fireRate;
-    private float nextFire;
 
 	// Use this for initialization
 	void Start () {
 
+        if (isLocalPlayer)
+            camera = GetComponentInChildren<Camera>();
 	}
 	
 	// Update is called once per frame
@@ -40,7 +40,7 @@ public class Basic_Shoot : NetworkBehaviour
 
 
     [Command]
-    void CmdShoot()
+    void CmdShoot(Vector2 target)
         /*
         This class calls server side code required when shooting. It is called from within Shoot.
         This class creates a bullet and instantiates it on the server.
@@ -51,7 +51,7 @@ public class Basic_Shoot : NetworkBehaviour
     {
         GameObject bullet_temp = (GameObject)Instantiate(bullet, transform.position, transform.rotation);
         float speed = bullet_temp.GetComponent<Bullet_Properties>().speed;
-        bullet_temp.GetComponent<Rigidbody2D>().velocity = transform.right * speed;
+        bullet_temp.GetComponent<Rigidbody2D>().velocity = target;
         NetworkServer.Spawn(bullet_temp);
         Destroy(bullet_temp, 5);
     }
@@ -64,10 +64,12 @@ public class Basic_Shoot : NetworkBehaviour
          This class gets the location that the player clicked at, and created a vector2 target for CmdShoot to use.
         */
     {
-        if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
+        if (Input.GetAxis("Fire1") > 0)
         {
-            nextFire = Time.time + fireRate;
-            CmdShoot();
+            print("bob");
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            Vector2 target = new Vector2(ray.GetPoint(1).x, ray.GetPoint(1).y) - new Vector2(transform.position.x, transform.position.y);
+            CmdShoot(target);
         }
     }
 
