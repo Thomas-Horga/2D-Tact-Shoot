@@ -9,7 +9,7 @@ public class Character_Controller : NetworkBehaviour {
         Currently in only moves the character with default controls, and manages its position on the 
         server (quite poorly too)
 
-        TODO: Lerp player position
+        TODO: Lerp player position.
     */
 
 
