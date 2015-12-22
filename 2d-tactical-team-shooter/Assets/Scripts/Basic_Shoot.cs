@@ -9,6 +9,8 @@ public class Basic_Shoot : NetworkBehaviour
     This Class is a basic Shooting template. It is very basic and should eventually be completely replaced.
     It have very basic bullet physics and instantiation, as well as very basic networking implementation
 
+    Added a collision ignore between the bullet and the player that spawned it - NV
+
     === Public Attributes ===
 
     @type camera: Camera
@@ -53,6 +55,9 @@ public class Basic_Shoot : NetworkBehaviour
         float speed = bullet_temp.GetComponent<Bullet_Properties>().speed;
         bullet_temp.GetComponent<Rigidbody2D>().velocity = transform.right * speed;
         NetworkServer.Spawn(bullet_temp);
+
+        Physics2D.IgnoreCollision(bullet_temp.GetComponent<BoxCollider2D>(), gameObject.GetComponent<BoxCollider2D>());
+
         Destroy(bullet_temp, 5);
     }
 
