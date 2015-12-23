@@ -73,6 +73,7 @@ public class Basic_Shoot : NetworkBehaviour
         {
             nextFire = Time.time + fireRate;
             CmdShoot();
+            print("asd");
         }
     }
 

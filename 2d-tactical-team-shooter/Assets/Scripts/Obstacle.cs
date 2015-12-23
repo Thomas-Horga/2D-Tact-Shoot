@@ -2,7 +2,8 @@
 using UnityEngine.Networking;
 using System.Collections;
 
-public class Obstacle : MonoBehaviour {
+public class Obstacle : NetworkBehaviour
+{
 
 	// Use this for initialization
 	void Start () {

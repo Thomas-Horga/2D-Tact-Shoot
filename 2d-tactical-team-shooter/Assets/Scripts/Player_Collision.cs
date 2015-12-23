@@ -2,7 +2,8 @@
 using UnityEngine.Networking;
 using System.Collections;
 
-public class Player_Collision : MonoBehaviour {
+public class Player_Collision : NetworkBehaviour
+{
 
     public int health;
 
@@ -13,8 +14,8 @@ public class Player_Collision : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+
+    }
 
     void OnCollisionEnter2D(Collision2D coll)
     /* Triggered when the player's collider comes into contact with any other
@@ -27,13 +28,16 @@ public class Player_Collision : MonoBehaviour {
     */
     {
         if (coll.gameObject.tag == "Projectile")
-            TakeDamage(coll.gameObject);
+        {
+            CmdTakeDamage(coll.gameObject);
             CmdDestroyProjectile(coll.gameObject);
+        }
+
 
     }
 
     [Command]
-    void TakeDamage(GameObject projectile)
+    void CmdTakeDamage(GameObject projectile)
     {
         /* Takes in the player gameObject and the projectile gameObject as an argument to deal damage to the player
         If the player's health drops to zero or below, the player gmaeObject is destroyed by the server
@@ -59,5 +63,18 @@ public class Player_Collision : MonoBehaviour {
         NetworkServer.Destroy(projectile);
 
         // May also need to remove any RPCs associated with the projectile
+    }
+
+
+    public bool CheckWallCollision(Vector3 movementDirection)
+    {
+        if (Physics2D.Raycast(transform.position,transform.position - movementDirection, 1f,11)){
+            return true;
+
+        }
+        else
+        {
+            return false;
+        }
     }
 }

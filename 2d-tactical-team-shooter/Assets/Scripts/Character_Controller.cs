@@ -17,10 +17,11 @@ public class Character_Controller : NetworkBehaviour {
     public float SensitivityY; // Sensitivity of the Y movement of the character
     public GameObject camera;
     public GameObject cameraPrefab;
+    private Player_Collision p_collision;
 
 	// Use this for initialization
 	void Start () {
-
+        p_collision = gameObject.GetComponent<Player_Collision>();
 	}
 	
 	// Update is called once per frame
@@ -46,7 +47,13 @@ public class Character_Controller : NetworkBehaviour {
 	{
         float x = Input.GetAxis("Horizontal") * SensitivityX;
         float y = Input.GetAxis("Vertical") * SensitivityY;
-        transform.position = transform.position + new Vector3(x, y, 0);
+        Vector3 movementDirection = new Vector3(x, y, 0);
+
+        if (!p_collision.CheckWallCollision(movementDirection))
+        {
+            transform.position = transform.position + movementDirection;
+        }
+
         CmdCharacterPosition(transform.position);
 
         Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
@@ -101,6 +108,7 @@ public class Character_Controller : NetworkBehaviour {
            this for the local player, not for other players.
         */
     {
+        gameObject.layer = 8;
         GetComponent<SpriteRenderer>().color = Color.blue;
         //GetComponentInChildren<Camera>().enabled = true;
         Vector3 position = new Vector3(transform.position.x, transform.position.y, -10);
