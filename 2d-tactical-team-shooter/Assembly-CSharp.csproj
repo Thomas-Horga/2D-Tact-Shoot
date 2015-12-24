@@ -49,8 +49,12 @@
      <Compile Include="Assets\Scripts\Basic_Shoot.cs" />
      <Compile Include="Assets\Scripts\Bullet_Properties.cs" />
      <Compile Include="Assets\Scripts\Character_Controller.cs" />
+     <Compile Include="Assets\Scripts\LayerCollisionManager.cs" />
      <Compile Include="Assets\Scripts\Obstacle.cs" />
      <Compile Include="Assets\Scripts\Player_Collision.cs" />
+     <Compile Include="Assets\Scripts\Weapon.cs" />
+     <Compile Include="Assets\Scripts\Weapon_Melee.cs" />
+     <Compile Include="Assets\Scripts\Weapon_Ranged.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
