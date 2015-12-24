@@ -19,9 +19,12 @@ public class Character_Controller : NetworkBehaviour {
     public GameObject cameraPrefab;
     private Player_Collision p_collision;
 
+    public Rigidbody2D rigidbody;
+
 	// Use this for initialization
 	void Start () {
         p_collision = gameObject.GetComponent<Player_Collision>();
+        rigidbody = gameObject.GetComponent<Rigidbody2D>();
 	}
 	
 	// Update is called once per frame
@@ -49,9 +52,10 @@ public class Character_Controller : NetworkBehaviour {
         float y = Input.GetAxis("Vertical") * SensitivityY;
         Vector3 movementDirection = new Vector3(x, y, 0);
 
-        if (!p_collision.CheckWallCollision(movementDirection))
+        if (!p_collision.CheckWallCollision(movementDirection) && movementDirection != new Vector3(0,0,0))
         {
-            transform.position = transform.position + movementDirection;
+            //transform.position = transform.position + movementDirection;
+            rigidbody.velocity = movementDirection;
         }
 
         CmdCharacterPosition(transform.position);

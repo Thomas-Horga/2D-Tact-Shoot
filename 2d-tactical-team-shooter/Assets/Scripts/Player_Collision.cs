@@ -67,6 +67,14 @@ public class Player_Collision : NetworkBehaviour
 
 
     public bool CheckWallCollision(Vector3 movementDirection)
+
+        /*
+            Checks if a wall is in the direction of movement, and then returns true if a wall is found, false if no wall is found.
+
+            @type movementDirection: Vector3
+            @rtype: bool
+
+        */ 
     {
         if (Physics2D.Raycast(transform.position,transform.position - movementDirection, 1f,11)){
             return true;
