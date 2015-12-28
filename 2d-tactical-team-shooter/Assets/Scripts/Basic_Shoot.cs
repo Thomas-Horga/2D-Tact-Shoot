@@ -41,6 +41,8 @@ public class Basic_Shoot : NetworkBehaviour
 	}
 
 
+
+
     [Command]
     void CmdShoot()
         /*
