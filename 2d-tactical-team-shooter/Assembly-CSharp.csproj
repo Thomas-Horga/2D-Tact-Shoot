@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\Bullet_Properties.cs" />
      <Compile Include="Assets\Scripts\Character_Controller.cs" />
      <Compile Include="Assets\Scripts\LayerCollisionManager.cs" />
+     <Compile Include="Assets\Scripts\Loadout.cs" />
      <Compile Include="Assets\Scripts\Obstacle.cs" />
      <Compile Include="Assets\Scripts\Player_Collision.cs" />
      <Compile Include="Assets\Scripts\Weapon.cs" />

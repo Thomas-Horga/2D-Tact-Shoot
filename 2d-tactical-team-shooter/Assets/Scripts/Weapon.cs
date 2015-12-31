@@ -15,7 +15,7 @@ public abstract class Weapon : NetworkBehaviour
         object represents the Camera Attached to the gameObject
     @type bullet: GameObject
         gameobject that holds a Bullet GameObject
-    @type attackSpeed
+    @type attackSpeed : float
         The amount of time taken to perform each attack.
     */
 
@@ -36,7 +36,8 @@ public abstract class Weapon : NetworkBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-        if (isLocalPlayer)
+        // FIGURE OUT HOW TO ADD THE NETWORK IDENTITY TO THE GUN AS WELL
+        if (transform.parent.GetComponent<NetworkIdentity>().isLocalPlayer)
         {
             Attack();
         }
@@ -59,10 +60,10 @@ public abstract class Weapon : NetworkBehaviour
     [Command]
     public abstract void CmdAttack();
     /*
-    This class calls server side code required when attacking. It is called from within Attack.
-    This class creates a bullet and instantiates it on the server.
+    This method calls server side code required when attacking. It is called from within Attack.
+    This method creates a bullet and instantiates it on the server.
 
-    This function is not ment to be called directly, but rather implemented within the subclasses!
+    This method is not ment to be called directly, but rather implemented within the subclasses!
 
     @type target: Vector2
         The Target that the bullet will be flying towards.

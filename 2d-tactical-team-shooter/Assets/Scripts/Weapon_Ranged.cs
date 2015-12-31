@@ -22,6 +22,8 @@ public class Weapon_Ranged : Weapon {
         The current amount of ammo
     @type reloadTime : float
         The amount of time it takes for the gun to reload
+    @type reloading : bool
+        The boolean is used to determine if the player is currently reloading.
     @type spray : float
         The maximum angle that the gun will spray at both to left and right, later converted to Euler Angles.
     */
@@ -29,13 +31,15 @@ public class Weapon_Ranged : Weapon {
     // === Private Attributes ===
     // @type nextAttack : float
     //      The time at which the next attack can be performed, represented as a float.
-    // @type reloading : bool
-    //      The boolean is used to determine if the player is currently reloading.
+    // 
+
+    // Spray is still being worked on
 
     public int magazine_size;
     public int ammo;
     public float reloadTime;
-    private bool reloading = false;
+    //Afterwards change this back to private, or actually keep it as public?
+    public bool reloading = false;
 
     public float spray;
 
@@ -59,7 +63,8 @@ public class Weapon_Ranged : Weapon {
 
             Vector2 new_Velocity = transform.right * speed;
 
-            new_Velocity = Quaternion.Euler(Random.Range(-spray, spray), 0, 0) * new_Velocity;
+            //new_Velocity = Quaternion.Euler(Random.Range(-spray, spray), 0, 0) * new_Velocity;
+            //new_Velocity = Quaternion.AngleAxis(Random.Range(spray * -1, spray), Vector3.up) * new_Velocity;
             bullet_temp.GetComponent<Rigidbody2D>().velocity = new_Velocity;
             NetworkServer.Spawn(bullet_temp);
 
@@ -79,7 +84,31 @@ public class Weapon_Ranged : Weapon {
         }
     }
 
+
+
+    [Command]
+    public void CmdReloadOnSwitch()
+    /*
+    This method is responsible for reloading the weapon when it is switched to and has
+    an empty mag.
+
+    It starts a coroutine that runs for the amount of time that the weapon needs to reload.
+
+    @rtype None
+    */
+    {
+
+        StartCoroutine(WaitToReload());
+    }
+
     IEnumerator WaitToReload()
+    /*
+    This coroutine is used as a timer for reloading the player's weapon.
+    It runs for the specified reloadTime and at the end sets the amount of ammo in the magazine
+    as well as changing the reloading status to false.
+
+    @rtype None
+    */
     {
         Debug.Log("Before Reloading");
         yield return new WaitForSeconds(reloadTime);
