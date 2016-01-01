@@ -25,8 +25,8 @@ public class Bullet_Properties : NetworkBehaviour {
 
 
 
-    void OnTriggerEnter2D(Collider2D coll)
-    /* Triggered when a collider enters the trigger collider. if the other collider has a gameobject with tag
+    void OnTriggerStay2D(Collider2D coll)
+    /* Triggered when a collider stays in the trigger collider. if the other collider has a gameobject with tag
     ObstacleDestrucable than cmdDestroyOther gets called.
 
     @rtype : None

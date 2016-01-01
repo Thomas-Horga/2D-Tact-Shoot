@@ -57,6 +57,10 @@ public class Character_Controller : NetworkBehaviour {
             //transform.position = transform.position + movementDirection;
             rigidbody.velocity = movementDirection;
         }
+        else if (movementDirection == new Vector3(0, 0, 0))
+        {
+            rigidbody.velocity = new Vector3(0, 0, 0);
+        }
 
         CmdCharacterPosition(transform.position);
 
